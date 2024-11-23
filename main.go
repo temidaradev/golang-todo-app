@@ -1,29 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"net/http"
 	"os"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
+	"github.com/gofiber/fiber/v3"
 	"github.com/joho/godotenv"
 )
 
 func main() {
+	app := fiber.New()
 	if err := godotenv.Load(); err != nil {
 		log.Fatal(err)
 	}
 
-	r := chi.NewRouter()
-	r.Use(middleware.Logger)
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome"))
+	app.Get("/", func(c fiber.Ctx) error {
+		return c.SendString("Welcome!")
 	})
 
 	listenAddr := os.Getenv("LISTEN_ADDR")
 
-	fmt.Printf("Server is online on port %v \n", listenAddr)
-	http.ListenAndServe(listenAddr, r)
+	log.Fatal(app.Listen(listenAddr))
 }
