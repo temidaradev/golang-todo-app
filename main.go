@@ -15,7 +15,7 @@ func main() {
 	}
 
 	app.Get("/", func(c fiber.Ctx) error {
-		return c.SendString("Welcome!")
+		return c.SendString("Welcome! SupaNigaaa")
 	})
 
 	listenAddr := os.Getenv("LISTEN_ADDR")
