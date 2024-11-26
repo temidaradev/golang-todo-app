@@ -42,5 +42,4 @@ func main() {
 	<-c //blocking the main thread until interrupted
 	app.Shutdown()
 	fmt.Println("shutting down the server")
-
 }
