@@ -39,6 +39,7 @@ func main() {
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
 	<-c //blocking the main thread until interrupted
+
 	app.Shutdown()
 	fmt.Println("shutting down the server")
 }
