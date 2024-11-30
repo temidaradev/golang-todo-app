@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/a-h/templ"
-	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v2"
 )
 
 type HTTPHandler func(w http.ResponseWriter, r *http.Request) error
@@ -18,7 +18,7 @@ func Make(h HTTPHandler) http.HandlerFunc {
 	}
 }
 
-func Render(c fiber.Ctx, component templ.Component) error {
+func Render(c *fiber.Ctx, component templ.Component) error {
 	c.Set("Content-Type", "text/html")
 
 	return component.Render(c.Context(), c.Response().BodyWriter())
