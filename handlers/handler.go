@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	"net/http"
-
 	"github.com/gofiber/fiber/v3"
 	"github.com/temidaradev/golang-todo-app/database"
 	"github.com/temidaradev/golang-todo-app/models"
@@ -19,6 +17,7 @@ func ListFact(c fiber.Ctx) error {
 
 func CreateFact(c fiber.Ctx) error {
 	fact := new(models.Fact)
+
 	if err := c.Bind().Body(fact); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": err.Error(),
@@ -30,6 +29,6 @@ func CreateFact(c fiber.Ctx) error {
 	return c.Status(200).JSON(fact)
 }
 
-func HandleHome(w http.ResponseWriter, r *http.Request) error {
-	return Render(w, r, home.Index())
+func HandleHome(c fiber.Ctx) error {
+	return Render(c, home.Index())
 }
