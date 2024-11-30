@@ -1,13 +1,13 @@
 package handlers
 
 import (
-	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v2"
 	"github.com/temidaradev/golang-todo-app/database"
 	"github.com/temidaradev/golang-todo-app/models"
 	"github.com/temidaradev/golang-todo-app/views/home"
 )
 
-func ListFact(c fiber.Ctx) error {
+func ListFact(c *fiber.Ctx) error {
 	facts := []models.Fact{}
 
 	database.DB.Db.Find(&facts)
@@ -15,10 +15,10 @@ func ListFact(c fiber.Ctx) error {
 	return c.Status(200).JSON(facts)
 }
 
-func CreateFact(c fiber.Ctx) error {
+func CreateFact(c *fiber.Ctx) error {
 	fact := new(models.Fact)
 
-	if err := c.Bind().Body(fact); err != nil {
+	if err := c.BodyParser(fact); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": err.Error(),
 		})
@@ -29,6 +29,6 @@ func CreateFact(c fiber.Ctx) error {
 	return c.Status(200).JSON(fact)
 }
 
-func HandleHome(c fiber.Ctx) error {
+func HandleHome(c *fiber.Ctx) error {
 	return Render(c, home.Index())
 }
