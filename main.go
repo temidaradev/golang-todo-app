@@ -28,6 +28,7 @@ func main() {
 
 	app.Use(compress.New())
 	router.SetupRoutes(app)
+	app.Static("/*", "./public/styles.css")
 
 	go func() {
 		if err := app.Listen(listenAddr); err != nil {
