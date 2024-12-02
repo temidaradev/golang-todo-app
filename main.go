@@ -11,11 +11,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/joho/godotenv"
+	"github.com/temidaradev/golang-todo-app/database"
 	"github.com/temidaradev/golang-todo-app/router"
 )
 
 func main() {
-	//database.ConnectDB()
+	database.ConnectDB()
 	if err := godotenv.Load(); err != nil {
 		log.Fatal(err)
 	}

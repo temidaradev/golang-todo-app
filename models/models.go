@@ -2,8 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
-type Fact struct {
+type Todo struct {
 	gorm.Model
-	Question string `json:"question" gorm:"text;not null;default;null`
-	Answer   string `json:"answer" gorm:"text;not null;default;null`
+	Todo string `json:"todo" gorm:"text;not null;default;null`
 }
