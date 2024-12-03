@@ -13,7 +13,7 @@ templ Index(tasks []Task) {
 			for _, t := range tasks {
 				<div class="flex py-2">
 					<div>{ t.ID }: { t.Todo }</div>
-					<form action={ templ.SafeURL("/Delete/" + t.ID) } method="DELETE">
+					<form action={ templ.SafeURL("/Delete/" + t.ID) } method="POST">
 						<button type="submit" class="flex items-center  px-4 mx-4  text-sm font-medium tracking-wide transition-colors duration-100 rounded-md text-neutral-500 bg-neutral-50 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-100 hover:text-neutral-600 hover:bg-neutral-100">
 							Button
 						</button>

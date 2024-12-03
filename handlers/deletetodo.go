@@ -7,7 +7,7 @@ import (
 )
 
 func DeleteTodo(c *fiber.Ctx) error {
-	dbTodo := models.Todo{}
+	dbTodo := []models.Todo{}
 	id := c.Params("id")
 
 	result := database.DB.Db.Where("id = ?", id).Delete(&dbTodo)
