@@ -9,13 +9,14 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/compress"
+	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/joho/godotenv"
+	"github.com/temidaradev/golang-todo-app/database"
 	"github.com/temidaradev/golang-todo-app/router"
 )
 
 func main() {
-	//database.ConnectDB()
+	database.ConnectDB()
 	if err := godotenv.Load(); err != nil {
 		log.Fatal(err)
 	}
@@ -26,7 +27,13 @@ func main() {
 		IdleTimeout: 5 * time.Second,
 	})
 
-	app.Use(compress.New())
+	app.Use(cache.New(cache.Config{
+		Next: func(c *fiber.Ctx) bool {
+			return c.Query("noCache") == "true"
+		},
+		Expiration:   30 * time.Minute,
+		CacheControl: true,
+	}))
 	router.SetupRoutes(app)
 	app.Static("/*", "./public/styles.css")
 

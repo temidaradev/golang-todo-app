@@ -2,10 +2,24 @@ package home
 
 import "github.com/temidaradev/golang-todo-app/views/layouts"
 
-templ Index() {
+type Task struct {
+	ID   string
+	Todo string
+}
+
+templ Index(tasks []Task) {
 	@layouts.Base() {
 		<div class="flex flex-col items-center">
-			<h1 class="mb-1 text-4xl font-extrabold leading-none text-gray-900 lg:text-5xl xl:text-6xl sm:mb-3">Wassudsbananadsp</h1>
+			for _, t := range tasks {
+				<div class="flex py-2">
+					<div>{ t.ID }: { t.Todo }</div>
+					<form action={ templ.SafeURL("/Delete/" + t.ID) } method="POST">
+						<button type="submit" class="flex items-center  px-4 mx-4  text-sm font-medium tracking-wide transition-colors duration-100 rounded-md text-neutral-500 bg-neutral-50 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-100 hover:text-neutral-600 hover:bg-neutral-100">
+							Button
+						</button>
+					</form>
+				</div>
+			}
 		</div>
 	}
 }
