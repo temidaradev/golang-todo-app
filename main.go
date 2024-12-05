@@ -28,10 +28,7 @@ func main() {
 	})
 
 	app.Use(cache.New(cache.Config{
-		Next: func(c *fiber.Ctx) bool {
-			return c.Query("noCache") == "true"
-		},
-		Expiration:   30 * time.Minute,
+		Expiration:   1 * time.Second,
 		CacheControl: true,
 	}))
 	router.SetupRoutes(app)
